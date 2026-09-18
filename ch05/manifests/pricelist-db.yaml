@@ -48,10 +48,10 @@ spec:
         resources:
           requests:
             memory: "1024Mi"
-            cpu: "100m"
+            cpu: "200m"
           limits:
             memory: "2048Mi"
-            cpu: "500m"
+            cpu: "800m"
       volumes:
       - name: mysql-db
         persistentVolumeClaim:
