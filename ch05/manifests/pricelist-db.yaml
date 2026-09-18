@@ -23,6 +23,8 @@ spec:
       containers:
       - image: mysql:5.6.51
         name: mysql
+        # Disables performance schema to drastically drop idle RAM usage
+        args: ["--performance_schema=OFF"] 
         env:
         - name: MYSQL_DATABASE
           value: pricelist
@@ -33,24 +35,24 @@ spec:
         - name: MYSQL_RANDOM_ROOT_PASSWORD
           value: "yes"
         volumeMounts:
-        - mountPath: /var/lib/mysql/data
+        - mountPath: /var/lib/mysql  # <-- Fixed path
           name: mysql-db
         livenessProbe:
           tcpSocket:
             port: 3306
-          initialDelaySeconds: 12
+          initialDelaySeconds: 30 # Increased to give MySQL time to initialize
           periodSeconds: 10
         readinessProbe:
           tcpSocket:
             port: 3306
-          initialDelaySeconds: 12
+          initialDelaySeconds: 30 # Increased to give MySQL time to initialize
           periodSeconds: 10
         resources:
           requests:
-            memory: "1024Mi"
+            memory: "256Mi"  # With performance_schema off, you can lower these safely
             cpu: "200m"
           limits:
-            memory: "2048Mi"
+            memory: "512Mi"  
             cpu: "800m"
       volumes:
       - name: mysql-db
