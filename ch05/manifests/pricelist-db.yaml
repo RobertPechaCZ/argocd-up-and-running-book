@@ -35,24 +35,24 @@ spec:
         - name: MYSQL_RANDOM_ROOT_PASSWORD
           value: "yes"
         volumeMounts:
-        - mountPath: /var/lib/mysql  # <-- Fixed path
+        - mountPath: /var/lib/mysql
           name: mysql-db
         livenessProbe:
           tcpSocket:
             port: 3306
-          initialDelaySeconds: 30 # Increased to give MySQL time to initialize
+          initialDelaySeconds: 30
           periodSeconds: 10
         readinessProbe:
           tcpSocket:
             port: 3306
-          initialDelaySeconds: 30 # Increased to give MySQL time to initialize
+          initialDelaySeconds: 30
           periodSeconds: 10
         resources:
           requests:
-            memory: "256Mi"  # With performance_schema off, you can lower these safely
+            memory: "512Mi"  # Raised to handle the initial container startup footprint safely
             cpu: "200m"
           limits:
-            memory: "512Mi"  
+            memory: "1Gi"    # Raised to 1Gi to stop the OOMKilled crash during InnoDB initialization
             cpu: "800m"
       volumes:
       - name: mysql-db
