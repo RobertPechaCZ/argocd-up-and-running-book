@@ -21,9 +21,9 @@ spec:
         tier: database
     spec:
       containers:
-      - image: mysql:5.6.51
+      # Changed to 5.7 to obtain native ARM64 support for Apple Silicon Macs
+      - image: mysql:5.7.44 
         name: mysql
-        # Disables performance schema to drastically drop idle RAM usage
         args: ["--performance_schema=OFF"] 
         env:
         - name: MYSQL_DATABASE
@@ -49,10 +49,10 @@ spec:
           periodSeconds: 10
         resources:
           requests:
-            memory: "512Mi"  # Raised to handle the initial container startup footprint safely
+            memory: "512Mi"
             cpu: "200m"
           limits:
-            memory: "1Gi"    # Raised to 1Gi to stop the OOMKilled crash during InnoDB initialization
+            memory: "1Gi"
             cpu: "800m"
       volumes:
       - name: mysql-db
