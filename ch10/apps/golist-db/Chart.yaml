@@ -6,4 +6,4 @@ appVersion: "1.0.0"
 dependencies:
 - name: mariadb
   version: 12.2.4   # 👈 The version of the HELM CHART itself, not the database version
-  repository: https://bitnami.com
+  repository: https://charts.bitnami.com/bitnami
