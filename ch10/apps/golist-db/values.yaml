@@ -1,11 +1,18 @@
+# 1. Old Schema Format (Matches mariadb-11.1.0 currently active in your cluster)
+image:
+  registry: docker.io
+  repository: library/mariadb
+  tag: "10.6"
+
+# 2. Modern Dependency Schema Format (Matches mariadb-12.x)
 mariadb:
   architecture: "standalone"
   auth:
-    rootPassword: "golistRootPasswordHere"
+    rootPassword: "golistSecureRootPassword"
     database: "golist"
     username: "golist"
     password: "golist"
   image:
     registry: docker.io
     repository: library/mariadb
-    tag: "10.6"  # 👈 The database engine tag you wanted!
+    tag: "10.6"
